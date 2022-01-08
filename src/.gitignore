@@ -1,0 +1,8 @@
+#Ignore the virtual environment
+loluenv
+
+# Ignore compiled Python source files
+*.pyc
+
+#Ignore SQLite database file
+*.sqLite3
