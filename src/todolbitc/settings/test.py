@@ -1,16 +1,32 @@
 from .base import *
 import os
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+# Installed Apps
+INSTALLED_APPS += ('django_nose', )
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+TEST_OUTPUT_DIR = os.environ.get('TEST_OUTPUT_DIR','.')
+NOSE_ARGS = [
+  '--verbosity=2',                  # verbose output
+  '--nologcapture',                 # don't output log capture
+  '--with-coverage',                # activate coverage report
+  '--cover-package=todo',           # coverage reports will apply to these packages
+  '--with-spec',                    # spec style tests
+  '--spec-color',
+  '--with-xunit',                   # enable xunit plugin
+  '--xunit-file=%s/unittests.xml' % TEST_OUTPUT_DIR,
+  '--cover-xml',                    # produce XML coverage info
+  '--cover-xml-file=%s/coverage.xml' % TEST_OUTPUT_DIR,
+]
 
+# Database
+# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'Name': os.environ.get('MYSQL_DATABASE','todolbitc'),
+        'NAME': os.environ.get('MYSQL_DATABASE','todolbitc'),
         'USER': os.environ.get('MYSQL_USER','todo'),
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD','Pass#123'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD','pass#123'),
         'HOST': os.environ.get('MYSQL_HOST','localhost'),
-        'PORT': os.environ.get('MYSQL_PORT','3360'),
+        'PORT': os.environ.get('MYSQL_PORT','3306'),
     }
 }
